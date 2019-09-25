@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pokemon</title>
+    <link rel="stylesheet" href="style.css" type="text/css"/>
+
+</head>
+
+<body>
+<h1>Pokemon</h1>
+
+<nav class="navbar navbar-light bg-light">
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" type="buscar" placeholder="Buscar" aria-label="Buscar">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+  </nav>
+
+  <input
+  type= "text"
+  class="class_pokemon"
+  id="input_pokemon"
+  placeholder="busca de pokemon"
+  />
+  <button
+  id="btn_pokemon"
+  > Buscar</button>
+
+  <tbody id="tabela-lista-corpo"></tbody>
+</table>
+
+  <script>
+
+    const input_pokemon = document.querySelector('.class_pokemon');
+    const btn_pokemon = document.querySelector('#btn_pokemon');
+    const tabela = document.querySelector('#tabela-lista-corpo');
+
+    window.onload = function(){
+        let url = 'https://pokeapi.co/api/v2/pokemon/---/';
+
+        fetch(url)
+        .then(resposta => resposta.json())
+        .then(data => construirTabela(data))
+        .catch( erro => console.log(erro));
+
+        function construirTabela (pokemon){
+            pokemon.forEach( element => {
+                const tr = document.createElement('tr');
+                const td_id = document.createElement('td');
+                const td_nome = document.createElement('td');
+                
+                td_id.textContent = element.idPokemon;
+                td_nome.textContent = element.nome;
+
+                tr.appendChild(td_id);
+                tr.appendChild(td_nome);
+                tabela.appendChild(tr);
+            });
+        }
+    };
+
+    btn_pokemon.addEventListener('click', function(event){
+        event.preventDefault();
+
+        let objetoJSON = {
+            nome: input_pokemon.value
+        };
+
+        let xhr = new XMLHttpRequest();
+
+        xhr.onload = function(){
+            if(xhr.readyState == nome){
+                console.log('sucesso');
+            }else{
+                console.log('erro,tente novamente');
+            }
+        }
+
+        
+    });
+
+
+
+
+
+  
+//   let pokemon = [{
+//             nome: "sell",
+//             habilidade:"ice-body",
+//             habilidade:"hydration",
+//             habilidade:"thick-fat"
+//         }, {
+//             nome: "ditto",
+//             habilidade: "impostor",
+//             habilidade:"limber"
+//         }, {
+//             nome:"mulk",
+//             habilidade: "poison-touch",
+//             habilidade:"sticky-hold",
+//             habilidade:"stench"
+//         }, {
+//             nome: "abra",
+//             habilidade: "magic-guard ",
+//             habilidade:"inner-focus",
+//             habilidade:"synchronize"
+//         }, {
+//             nome:"kabuto",
+//             habilidade: "weak-armor",
+//             habilidade:"battle-armor",
+//             habilidade: "swift-swim"
+//         }, {
+//             nome:"mew",
+//             habilidade: "synchronize",
+//         }
+//     }];
+
+  </script>
+    
+</body>
+</html>
